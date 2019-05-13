@@ -1,0 +1,44 @@
+
+section.form-template{
+	div.form-header{
+		height: 200px;
+
+		div.form-gradient{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			left: 0;
+			bottom: 0;
+			display: flex;
+			align-items: flex-end;
+
+			h2{
+				color: white;
+				padding-left: 20px;
+				padding-bottom: 20px;
+			}
+		}
+	}
+
+	.wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-fields input[type=text], .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-fields input[type=password], .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-fields input[type=email], .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-fields input[type=url], .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-fields input[type=number], .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-fields textarea{
+
+		border: none;
+		box-shadow: none;
+		border-bottom: 2px solid black;
+	}
+
+	.wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-submit input[type=submit]{
+		width: 100%;
+		border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: none;
+	}
+
+	ul.wpuf-form.form-label-above li .wpuf-label {
+    margin-bottom: 0px;
+		text-transform: uppercase;
+	}
+}

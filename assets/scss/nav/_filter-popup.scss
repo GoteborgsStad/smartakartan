@@ -1,0 +1,148 @@
+.filter-overlay{
+	 top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 22;
+    background: black;	
+    opacity: 0.5;
+    display: none;
+    &.active{
+    	display: block;
+    }
+    	@media only screen and (min-width: $brake-small) {
+			display: none!important;
+		}
+}
+
+#filter-popup{
+	display: none;
+	position: fixed;
+    //bottom: 50px;
+    z-index: 32424;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid black;
+
+	&.active{
+		display: block;
+    	@media only screen and (min-width: $brake-small) {
+			display: none!important;
+		}
+	}
+	
+	.filter-title{
+		text-transform: uppercase;
+		padding-top: 0;
+		padding-bottom: 0;
+
+		font-size: $f-size-06;
+	}
+	
+	.filter-buttons{
+		display: flex;
+    	justify-content: space-between;
+    	&.sort-buttons{
+    		border: 2px solid black;
+    		border-right: 1px solid black;
+    		//border-top: 3px solid black;
+    		.ck-button{
+    			width: 33.3%;
+    			margin: 0;
+    			border: none;
+    			border-radius: 0;
+				label{
+					border-right: 2px solid;
+					span{
+						height: 30px;
+						min-height: 30px;
+						font-size: $f-size-06;
+					}
+				}
+    		}
+    	}
+     	&.transaction-buttons{
+
+    		.ck-button{
+				border-radius: 50%;
+				    height: 45px;
+    					width: 45px;
+				label{
+					height: 100%;
+					span{
+						font-size: $f-size-06;
+					}
+				}
+    		}
+    	}
+	}
+	
+	.filter-header{
+		display: flex;
+    	justify-content: center;
+    	border-bottom: 1px solid black;
+		padding: $space-01;
+		font-weight: bold;
+    	.reset{
+			position: absolute;
+    		right: 5px;
+    	}
+	}
+	.filter-body{
+		padding: $space-02;
+		.filter-section{
+			margin-bottom: $space-01;
+			&.open{
+			    display: flex;
+ 				justify-content: space-between;
+ 				align-items: center;
+ 				.filter-title{
+ 					padding: 0;
+ 					margin: 0;
+ 				}
+			}
+			&.categories{
+				div.categories-row{
+					display: flex;
+					flex-wrap: wrap;
+					.ck-button-holder{
+						width: 33.3%;
+						padding-right: 3px;
+					  .ck-button{
+					  		padding: 0;
+					  		border: none;
+					  		
+					  		label{
+					  			height: 100%;
+					  			span{
+					  				font-size: $f-size-06;
+					  			}
+					  		}
+
+					  }						
+						
+					}
+				}
+
+			}
+		}
+		.transaction-info{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			.indicator{
+				button{
+					background: transparent;
+				}
+			}
+		}
+		button.show-filter-resuls{
+			width: 100%;
+			background-color: #999;
+		}
+	}
+	
+}

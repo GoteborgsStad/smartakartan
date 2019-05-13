@@ -1,0 +1,12 @@
+.opening-hours{
+	
+	.opening-day{
+		display: flex;
+		align-items: stretch;
+		justify-content: left;
+		.week-day{
+			width: 30%;
+		}
+	}
+
+}

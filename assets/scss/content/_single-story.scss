@@ -1,0 +1,62 @@
+.single-story{
+
+	font-family: 'Palanquin', sans-serif;
+
+	.bloginfo{
+		font-family: 'Palanquin Dark', sans-serif;
+		font-weight: 400;
+	}
+
+	.single-story-image{
+		min-height: 250px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		.card-story-title{
+			padding: $space-02;
+		}
+	}
+	.content-single{
+		//padding-bottom: 350px;
+
+		a{
+			color: #5c1ea4;
+		}
+	}
+}
+
+.single-story{
+
+	div.entry-content{
+		h4{
+			font-family: 'Palanquin', sans-serif;
+			margin-top: 15px;
+			margin-bottom: 15px;
+			margin-left: 20px;
+			margin-right: 40px;
+			padding-top: 15px;
+			padding-bottom: 25px;
+			padding-left: 30px;
+			padding-right: 20px;
+			background-color: white;
+			border-left: 5px solid black;
+		}
+
+
+		p.wp-caption-text{
+			font-family: 'sans-serif', sans-serif !important;
+			font-size: 20px;
+			font-weight: 200;
+		}
+
+		strong{
+			line-height: 2rem;
+			font-family: 'Palanquin Dark', sans-serif;
+		}
+	}
+
+
+}

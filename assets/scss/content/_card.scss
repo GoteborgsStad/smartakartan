@@ -1,0 +1,62 @@
+article{
+	//margin-bottom: 10px;
+
+	.featured-main{
+		max-width: 100%;
+	}
+
+	.card{
+		box-shadow: 2px 4px 14px rgba(0,0,0,0.2);
+		//height: 232px;
+		border-radius: 12px;
+		font-size: 13px;
+		border: none;
+		&.card-image{
+			background-size: cover;
+			background-position: center;
+			
+		}
+		.card-img-top{
+			border-top-left-radius: 12px;
+			border-top-right-radius: 12px;
+			height: 170px;
+			background-size: cover;
+			background-position: center;
+		}
+		.card-body{
+			position: relative;
+			padding: 0.5rem;
+			.card-title{
+				    line-height: 19px;
+				    hyphens: auto;
+			}
+			.area-online, .area-offline{
+				font-weight: bold;
+			}
+			.category-name{
+				display: flex;
+			    justify-content: center;
+			    padding: 10px;
+			    width: auto;
+				position: absolute;
+				background-color: #fff;
+				top: -34px;
+				left: 10px;
+		    	border-bottom: 2px solid black;
+		    	
+				ul{
+					padding: 0;
+					list-style: none;
+					margin: 0;
+					li{
+						width: max-content;
+						a{
+							
+						}
+					}
+				}
+			}
+		}
+	}
+}
+

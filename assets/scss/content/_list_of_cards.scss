@@ -1,0 +1,54 @@
+#list-of-cards{
+	display: none;
+	max-width: 100%;
+	.row{
+		max-width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: 7px;
+		padding-right: 7px;
+	}
+	&.show{
+		display: flex;
+		flex-direction: column;
+	}
+	.grid-sizer, .grid-item{
+		  //width: 48%;
+		  width: 48%;
+		  margin-bottom: 10px;
+	}
+	.grid-item{
+		//min-width: 214px;
+	}
+	.grid-item--width2{
+		width: 98%;
+	}
+	@media only screen and (min-width: $brake-small ) and (max-width: $brake-Xlarge){
+		display: flex;
+		flex-direction: column;
+
+		.grid-sizer, .grid-item{
+			  width: 32%;
+		}
+		.grid-item--width2{
+			width: 32%;
+		}
+	}
+
+	@media only screen  and (min-width: $brake-Xlarge) {
+		.grid-sizer, .grid-item{
+			  width: 24%;
+		}
+		.grid-item--width2{
+			width: 24%;
+		}
+	}
+	@media only screen  and (min-width: $brake-XXL) {
+		.grid-sizer, .grid-item{
+			  width: 15%;
+		}
+		.grid-item--width2{
+			width: 15%;
+		}
+	}
+}

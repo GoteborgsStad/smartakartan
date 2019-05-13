@@ -1,0 +1,36 @@
+#list-of-blogs{
+	display: none;
+	max-width: 100%;
+	.row{
+		max-width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: 7px;
+		padding-right: 7px;
+	}
+	&.show{
+		display: flex;
+		flex-direction: column;
+	}
+	.grid-sizer, .grid-item{
+		  //width: 48%;
+		  width: 100%;
+		  margin-bottom: 10px;
+	}
+	.grid-item--width2{
+		width: 98%;
+	}
+	@media only screen and (min-width: $brake-small) {
+		display: flex;
+		flex-direction: column;
+		
+		.grid-sizer, .grid-item{
+			  width: 30%;
+		}
+		.grid-item--width2{
+			width: 60%;
+		}
+
+	}
+	
+}

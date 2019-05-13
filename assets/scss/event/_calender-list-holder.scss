@@ -1,0 +1,102 @@
+.calender-list-holder{
+	margin-top: 10px;
+	//border: 1px solid black;
+	display: none;
+	//padding: 0;
+	
+	.calender-list-header{
+		
+		display: flex;
+		flex-direction: row;
+		padding: 0;
+		
+		.calender-title{
+			display: flex;
+			justify-content: start;
+			align-items: center;
+			width: 60%;
+			text-align: center;
+			border-bottom: 1px solid;
+			//margin-left: 20px;
+			//border-left: 1px solid;
+		}
+		
+		.calender-current-datum{
+			display: flex;
+			flex-direction: column;
+			text-align: center;
+			justify-content: center;
+			width: 40%;
+			h4{
+				font-size: 1rem;
+				margin-bottom: 0.3rem;
+			}
+		}
+
+		
+	}
+	
+	.calender-list-body{
+		padding-top: 10px;
+		display: flex;
+		flex-direction: column;
+		//padding: 10px;
+		
+		.btn-event{
+			display: flex;
+			align-items: center;
+			//height: 70px;
+			border: none;
+			margin-bottom: 5px;
+			background-color: 	rgba(172, 172, 172, 0.08);
+			width: 90%;
+			box-shadow: 1px 3px 4px #4444;
+			
+			.event-date{ 
+					min-width: 50px;
+					//height: 60px;
+				.month{
+					height: 40%;
+					padding: 3px 5px;
+				}
+				.day{
+					
+				}
+				
+			}
+			.event-details{
+				display: flex;
+				flex-direction: column;
+				align-items: start;
+				color: black;
+				color: #afafaf;
+				h4{
+					font-size: 1rem; 
+					padding-top: 0;
+					margin-bottom: $space-01;
+					color: #000;
+					white-space: pre-wrap;
+					text-align: left;
+				}
+				h6{
+					font-size: 0.6rem;
+					margin-bottom: 0.3rem;
+				}
+			}
+		}
+		
+	}
+}
+.calendar-more{
+	margin-top: 16px;
+	display: flex;
+	align-items: center;
+	.calendar-more-text{
+		margin-bottom: 0;
+		font-size: 1rem;
+		
+	}
+	.see-more-arrow{
+		padding-left: 10px;
+	}
+}

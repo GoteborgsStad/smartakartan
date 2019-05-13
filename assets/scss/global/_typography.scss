@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Andada|Palanquin|Palanquin+Dark:400,500,600,700|Sura:400,700&subset=latin-ext");
+
+html, body{
+	font-family: 'Palanquin Dark', sans-serif;
+}
+
+// font-sizing
+
+$f-size-01: 36px;
+$f-size-02: 30px;
+$f-size-03: 26px;
+$f-size-04: 20px;
+$f-size-05: 16px;
+$f-size-06: 12px;
+
+.fontFamilyAlt{
+	font-family: 'Andada', serif;
+}
+
+.block-title{
+	font-size: 25px;
+	color: $main-color-01;
+	font-weight: 400!important;
+	padding: 6px 0;
+
+}
+
+p{
+	font-size: $f-size-05;
+	margin-bottom: $space-01;
+}
+
+h1{
+	font-size: $f-size-01;
+	margin-bottom: $space-02;
+}
+h2{
+	font-size: $f-size-02;
+	margin-bottom: $space-02;
+}
+h3{
+	font-size: $f-size-03;
+	margin-bottom: $space-02;
+}
+h4{
+	font-size: $f-size-04;
+	margin-bottom: $space-01;
+}
+h5{
+	font-size: $f-size-05;
+	margin-bottom: $space-01;
+}
+h6{
+	font-size: $f-size-06;
+	margin-bottom: $space-01;
+}

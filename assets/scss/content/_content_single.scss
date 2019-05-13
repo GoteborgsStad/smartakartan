@@ -1,0 +1,242 @@
+.content-single{
+
+	position: relative;
+	//padding-bottom: 350px;
+	
+	@media only screen and (min-width: $brake-small) {
+		padding-top: 30px;
+			//padding-bottom: 130px;
+	}
+	
+
+	.only-mobile{
+			@media only screen and (min-width: $brake-small) {
+				display: none!important;
+			}
+	}
+
+	.post-cover-image{
+		padding: 0;
+		height: 400px;
+		width: 100%;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		width: 100vw;
+		//margin-left: -15px;
+		max-height: 400px;
+		@media only screen and (min-width: $brake-small) {
+			width: 100%;
+			margin-left: 0;
+			max-height: initial;
+		}
+	}
+
+	ul.wpuf_customs{
+		display: none;
+	}
+
+	.scroll-y{
+		padding: 16px 0;
+		display: flex;
+	    flex-wrap: nowrap;
+	    overflow-x: auto;
+	}
+	
+	.details{
+			
+		display: flex;
+		margin-top: 10px; 
+		margin-bottom: 10px; 
+		justify-content: space-between;
+		@media only screen and (min-width: $brake-small) {
+			margin-top: 0; 
+		}
+		.category-name{
+			background-color: transparent;
+			a{
+				text-decoration: underline;
+			}
+			ul{
+				display: flex;
+				padding: 0;
+				list-style: none;
+				margin: 0;
+			}
+		}
+	}
+	
+	.entry-content{
+		margin-top: 20px;
+		margin-bottom: 16px;
+		img{
+			width: 100%;
+			margin-top: 10px;
+			margin-bottom: 20px;
+			@media only screen and (min-width: $brake-small) {
+				width: initial;
+			}
+		}
+	}
+
+	.address-navigation{
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 10px;
+		padding-top: 16px;
+		.address-single{
+			text-transform: capitalize;
+		}
+		.addres-direction{
+			color: blue;
+		}
+	}
+
+	.reset-bootstrap-padding{
+			padding-right: 15px;
+			padding-left: 15px;
+		@media only screen and (min-width: $brake-small) {
+		padding-right: 0;
+		padding-left: 0;
+		}
+	}
+
+
+	.map-holder{
+		padding-right: 0;
+		padding-left: 0;
+		margin-right: -15px;
+		margin-left: -15px;
+		//margin-bottom: 16px;
+
+		@media only screen and (min-width: $brake-small) {
+			border: 1px solid black;
+			padding-right: 1px;
+			padding-left: 0;
+		margin-right: 0;
+		margin-left: 0;
+		}
+		#mapid2{
+			max-height: 250px;
+			height: initial;
+			@media only screen and (min-width: $brake-small) {
+				height: initial;
+				max-height: 450px;
+			}
+		}
+		.address-navigation{
+			padding: 16px 16px 0 16px;
+		}
+	} //.map-holder
+
+	.opening-hours{
+		border-bottom: 1px solid black;
+		span{
+			margin-left: $space-01;
+		}
+			@media only screen and (min-width: $brake-small) {
+				margin: 10px 10px;
+				.opening-header{
+					//display: flex;
+	    			align-items: center;					
+				}
+
+			}
+			
+		.is-open{
+			color: green;
+		}
+		.is-closed{
+			color: red;
+		}
+		.hours{
+			display: flex;
+    		flex-direction: column;
+    		    padding: 10px;
+		}
+		.open-arrow{
+			float: right;
+		}
+	}
+	
+	.changes{
+		padding: 10px 0;
+		a{
+			width: 100%;
+			padding: 0;
+			margin: 0;
+		}
+		.clame-initiative{
+	    	text-decoration: underline;
+	    }
+		button{
+			margin-bottom: 5px;
+			width: 100%;
+			color: #fff;
+			&.sk-button-01{
+				background-color: transparent;
+				border: 2px solid $main-color-05;
+				color: $main-color-05;
+			}
+			&.sk-button-02{
+				background-color: $main-color-05;
+			}
+		}
+	}
+
+
+	.share-buttons{
+		padding: 10px 0;
+		margin-bottom: 24px;
+	}
+}
+
+.instafeed{
+	img{
+		max-width: 50%
+	}
+}
+
+.alike-shops{
+	margin: 24px 0 10px 0;
+	h5{
+		color: black;
+		font-size: $f-size-05;
+		font-weight: bold;
+	}
+}
+
+div.frame-drop{
+	position: fixed;
+	background: rgba(0,0,0,.2);
+	width: 100%;
+	height: 100%;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	left: 0;
+	z-index: 500;
+
+	.close-out{
+		position: absolute;
+		top: 50px;
+		right: 30px;
+		width: 30px;
+		height: 30px;
+		background-color: red;
+	}
+	iframe{
+		// width: 90%;
+		// height: 80%;
+	width: 90vw;
+    height: 80vh;
+    max-height: 70vh;
+	}
+}
+.validate-address{
+	background-color: #46d081;
+	color: #fff;
+	max-width: 100%;
+	width: 100%;
+}

@@ -1,0 +1,57 @@
+#category-nav-mobile{
+
+    padding: 15px;
+    padding-bottom: 300px;
+     .transaktions-list{
+        justify-content: space-between;
+        margin-bottom: 20px;
+        .transaktion{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            a{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            img{
+                border-radius: 50%;
+            }
+        }
+     }
+    .categories-row{
+        .category-button-holder{
+            position: inherit!important;
+        }
+    }
+    nav.category-nav{
+        .block-header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .btn-cat{
+            .categori-name{
+                position: relative;                
+                .item-count{
+                    font-size: 10px;
+                    position: absolute;
+                    right: -15px;
+                    bottom: -4px;
+                }                
+            }
+
+        }
+    }    
+    .category-buttons{
+    
+    }
+    
+
+    
+     @media only screen and (min-width: $brake-small) {
+        display: none;
+    }
+
+}

@@ -1,0 +1,33 @@
+.list-of-cards{
+
+	.grid-sizer, .grid-item{
+		//width: 98%;
+		width: 48%;
+		margin-bottom: 10px;
+	}
+	.grid-item--width2{
+		width: 98%;
+	}
+	@media only screen and (min-width: $brake-small) {
+
+		.grid-sizer, .grid-item{
+			  width: 30%;
+		}
+		.grid-item--width2{
+			width: 60%;
+		}
+
+	}	
+}
+
+
+// show full width cards on template
+.category-template, .transactions{
+		@media only screen and (max-width: $brake-small) {
+			.grid-sizer, .grid-item{
+				width: 98%;
+				//width: 48%;
+				margin-bottom: 10px;
+			}
+		}
+}

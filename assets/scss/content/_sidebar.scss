@@ -1,0 +1,21 @@
+.sidebar{
+	//border: 1px solid black;
+	padding: 10px;
+	ul{
+		list-style-type: none;
+		padding: 10px 0;
+
+		li{
+			margin-top: 10px;
+
+			a{
+						padding: 10px;
+						color: white;
+						border-bottom: 2px solid black;
+    				border-radius: 5px;
+    				background-color: #5c1ea4;
+						margin-top: 10px;
+			}
+		}
+	}
+}

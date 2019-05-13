@@ -1,0 +1,38 @@
+.content-card-list-page{
+	
+	.page-thumbnail{
+		position: relative;
+		height: 350px;
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;	
+
+			 display: flex;
+			 justify-content: center;
+			 align-items: center;
+			.page-title{
+ 				color: #c1c0c1;
+			}		
+
+	} // .collection-thumbnail				
+		
+
+	
+	.main-content{
+		//padding: 10px;
+
+		.page-description{
+			margin: 10px 0;
+		}
+		.page-card-item{
+			margin-bottom: 15px;
+		}			
+	} //.main-content
+
+
+
+
+	
+
+	
+}

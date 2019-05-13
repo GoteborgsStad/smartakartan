@@ -1,0 +1,173 @@
+// share field on single page/post
+.share{
+	display: flex;
+	margin-bottom: $margin;
+	justify-content: space-around;
+    
+	border-top: 1px solid #999;
+    padding-top: 16px;
+
+	margin-top: 16px;
+	
+	@media only screen and (min-width: $brake-small) {
+	    border: none;
+         padding-bottom: 16px;
+	}
+	div{
+		text-align: center;
+	}
+	img{
+		height: 30px;
+		margin-bottom: 10px;
+	}
+	h6{
+		font-size: 12px;
+	}
+
+}
+
+.share-on-social{
+    i{
+       margin-bottom: 10px;
+    }
+}
+
+
+
+.share-on-social-mobile{
+    position: relative;
+}
+
+.share-on-social-container{
+    display: none;
+    &.show{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+       border-radius: 5px;
+        margin: 10px;
+        z-index: 4444;
+        padding: 24px 16px 8px 24px;
+        background: antiquewhite;
+        box-shadow: 2px 2px 5px #999;
+        
+        .share-buttons {
+            width: 100%; 
+        }
+        
+        .share-text{
+            font-weight: bold;
+        }
+        
+        #share-close{
+            position: absolute;
+            right: 7px;
+            top: 7px;
+            line-height: 10px;
+          }
+    }
+}
+
+@media only screen and (min-width: $brake-small) {
+    .share-on-social{
+        display: none;
+    } 
+    .share-on-social-container{
+        display: flex;
+        flex-direction: column;
+
+       border-radius: 5px;
+        margin: 10px 0;
+
+        padding: 24px 16px 8px 24px;
+        background: antiquewhite;
+        box-shadow: 2px 2px 5px #999;
+    }
+        .share-buttons {
+            width: 100%; 
+        }
+        
+        .share-text{
+            font-weight: bold;
+        }
+        
+        #share-close{
+            display: none;
+          }
+    }
+
+
+.share-buttons {
+    font-size: 0.7rem;
+    line-height: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0 0 60px;
+    z-index: 2;
+    position: relative;
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: flex-start;
+
+}
+
+.share-buttons li {
+    height: auto;
+    flex: 0 1 auto;
+    width: calc(48% - 1px);
+    margin-right: 1px;
+}
+
+.share-buttons li:last-child {
+    width: 48%;
+    margin-right: 0;
+}
+
+.share-buttons svg {
+    fill: #fff;
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+}
+
+.share-googleplus svg {
+    width: 20px;
+    height: 16px;
+}
+
+.share-buttons a {
+    display: block;
+    padding: 12px 12px 9px;
+    text-align: center;
+}
+
+.share-buttons li:first-child a {
+    border-radius: 3px 0 0 3px;
+}
+
+.share-buttons li:last-child a {
+    border-radius: 0 3px 3px 0;
+}
+
+.share-twitter	{
+    background: #1da1f2;
+}
+
+.share-facebook	{
+    background: #3b5998;
+}
+
+.share-googleplus	{
+    background: #db4437;
+}
+
+.share-pinterest	{
+    background: #b5071a;
+}

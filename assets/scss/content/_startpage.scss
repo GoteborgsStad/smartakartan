@@ -1,0 +1,48 @@
+.startpage{
+	
+	//padding-bottom: 250px;
+	
+	background-color: $main-color-03;
+
+	@media only screen and (min-width: $brake-small) {
+		padding-right: 15px;
+		padding-left: 15px;
+		padding-top: 15px;
+	} 		
+
+	.map-section{
+		
+	}
+
+	.content-section{
+	   padding-left: 25px;
+ 		padding-right: 15px;
+ 		padding-bottom: 100px;
+		@media only screen and (min-width: $brake-small) {
+			padding-right: 15px;
+			padding-left: 15px;
+		} 		
+		
+		.collection-slider{
+			@media only screen and (min-width: $brake-small) {
+				.btn-collection{
+					height: 88px;
+					padding: 0 40px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+						  	
+				}
+				.collection-title{
+					
+				}
+			} 		
+		}
+	} //.content-section
+	
+
+
+	
+	
+	
+}

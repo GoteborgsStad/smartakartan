@@ -1,0 +1,19 @@
+.category-template{
+	    min-height: 90%;
+	    padding-bottom: 300px;
+}
+
+.archive-wrapper{
+	padding-top: 100px;
+	padding-bottom: 200px;
+
+	.archive-item{
+		border-bottom: 3px solid #8cbf7e;
+		padding-bottom: 20px;
+		margin-bottom: 30px;
+
+		img{
+			max-height: 700px;
+		}
+	}
+}

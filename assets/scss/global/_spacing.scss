@@ -1,0 +1,20 @@
+html{
+	margin-bottom: 50px; //fixed footer height
+}
+
+.list-of-cards{
+	padding-right: 0;
+	padding-left: 0;
+	.row{
+		margin-right: 7px;
+    	margin-left: 7px;
+    	.col-6{
+    		padding: 7px;
+    	}
+    	.col-12{
+    		padding: 7px;
+    	}
+	}
+}
+
+

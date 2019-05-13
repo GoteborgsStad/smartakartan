@@ -1,0 +1,33 @@
+.search-template{
+	@media only screen and (min-width: $brake-small) {
+		padding-right: 15px;
+		padding-left: 15px;
+		padding-top: 15px;
+	} 			
+	.jumbotron{
+		min-height: 50px;
+		margin-top: $space-03;
+		margin-bottom: $space-03;
+		padding: $space-03!important;
+		.search-text{
+			color: #fff;
+			font-size: $f-size-04;
+		}
+		.search-term{
+			color: #fff;
+			font-size: $f-size-02;
+		}
+	}
+	.map-holder{
+		margin-left: -15px;
+    	margin-right: -15px;
+		@media only screen and (min-width: $brake-small) {
+		margin-left: 0;
+    	margin-right: 0;
+		} 			
+		.list-of-cards{
+			padding-top: $space-04;
+		}
+	}
+}	
+	

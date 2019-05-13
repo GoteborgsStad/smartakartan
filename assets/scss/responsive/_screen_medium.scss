@@ -1,0 +1,21 @@
+
+
+@media only screen and (min-width: $brake-small) {
+
+.calender-list-holder{
+	display: block;
+}
+
+	div.map-switcher{
+		display: none;
+	}
+
+	.the-map{
+
+		&.desktop{
+			display: block;
+		}	
+	}
+
+	
+}

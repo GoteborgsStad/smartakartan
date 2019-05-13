@@ -1,0 +1,27 @@
+.content-single-event{
+	padding-top: 0;
+			@media only screen and (min-width: $brake-small) {
+			padding-top: 10px;
+		}
+	.event-header{
+		display: flex;
+		align-items: center;
+		padding: 10px 0;
+		.event-date{
+
+		}
+	}
+	.event-data{
+		
+	}
+	article{
+		margin-bottom: 10px;
+	}
+	.map-wrapper{
+		div#mapid2{
+		height: 250px!important;			
+		}
+
+	}
+	
+}

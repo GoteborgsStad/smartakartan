@@ -1,0 +1,119 @@
+.btn{
+	padding: $space-01 $space-02;
+}
+.btn-sk{
+	color: #fff!important;
+    background-color: #F9F6EE;
+    border-color: none;
+    border: none;
+    width: min-content;
+    //height: 60px;
+    //line-height: 44px;
+}
+
+.load-more-holder{
+	padding-right: 10px;
+	text-align: center;
+}
+.btn-load-more{
+	    background-color: #999;
+	    color: #fff;
+	    width: 100%;
+		@media only screen and (min-width: $brake-small) {
+			width: 150px;
+		}
+	    &:hover{
+	    	background-color: #777;
+		}
+}
+.cat-count{
+
+}
+
+.btn-cat{
+	width: 100%;
+}
+
+div.buttons{
+	display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    margin-top: 0;
+    overflow: hidden;
+	a.button{
+		background-color: #e9ecef;
+		padding: $space-01 $space-01;
+		border-radius: 23px;
+		margin-right: $space-01;
+		font-weight: 700;
+	}
+	a.btn-sk{
+		margin-right: $space-01;
+	}
+	&.social{
+		a.button{
+			border-radius: 50px;
+			width: 40px;
+		    display: flex;
+		    height: 40px;
+		    justify-content: center;
+		    align-items: center;
+		}
+	}
+	&.btn-load-more{
+		display: flex;
+	    justify-content: center;
+	    background-color: #999;
+	    color: #fff;
+	}
+}
+
+.no_cards{
+	display: none !important;
+}
+
+@media (max-width: 768px){
+
+	div.category-buttons{
+		.sub-check-drop{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			opacity: 0;
+		}
+		input.sub-check:checked + .sub-check-drop{
+			opacity: 1;
+		}
+		input.sub-check:checked + .sub-check-drop + span{
+			color: white !important;
+		}
+		.ck-button label .inner-label{
+			position: relative;
+			z-index: 1;
+		}
+	}
+
+	div.transaction-buttons, div.sort-buttons{
+		.ck-button{
+			position: relative;
+			label{
+				span{
+					position: relative;
+					z-index: 1;
+				}
+				div.sub-check-drop{
+					position: absolute;
+					width: 100%;
+					height: 100%;
+				}
+				input.sub-check:checked + div.sub-check-drop{
+					background-color: #78b017;
+				}
+				input.sub-check:checked + div.sub-check-drop + span{
+					color: white;
+				}
+
+			}
+		}
+	}
+}

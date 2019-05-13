@@ -1,0 +1,96 @@
+$margin: 6px;
+
+// brake points
+$brake-xs: 370px;
+$brake-small: 767px;
+$brake-large: 992px;
+$brake-Xlarge: 1192px;
+$brake-XXL: 1592px;
+
+// Color
+
+// purple
+$main-color-01: rgb(35,19,84);
+// white
+$main-color-02: white;
+
+$main-color-03: rgb(209,218,244);
+
+// gray
+$main-color-04: rgb(104,104,104);
+
+//dark purple
+$main-color-05: rgb(92,30,164);
+
+// dark pink
+$main-color-06: rgb(254,191,190);
+
+//spacing
+
+$space-01:  6px;
+$space-02: 10px;
+$space-03: 15px;
+$space-04: 20px;
+$space-05: 26px;
+
+.mt-0 {
+  margin-top: 0 !important;
+}
+.mt-1 {
+  margin-top: $space-01;
+}
+.mt-2 {
+  margin-top: $space-02;
+}
+.mtb-1{
+  margin-top: $space-01;
+  margin-bottom: $space-01;
+}
+.mtb-2{
+  margin-top: $space-02;
+  margin-bottom: $space-02;
+}
+.mtb-3{
+  margin-top: $space-03;
+  margin-bottom: $space-03;
+}
+.p-0{
+	
+}
+.p-0 {
+  padding: 0 !important;
+}
+.p-1 {
+  padding: $space-01 !important;
+}
+.pt-1 {
+  padding-top: $space-01;
+}
+.pt-2 {
+  padding-top: $space-02;
+}
+.ptb-1{
+  padding-top: $space-01;
+  padding-bottom: $space-01;
+}
+.ptb-2{
+  margin-top: $space-02;
+  margin-bottom: $space-02;
+}
+.ptb-3{
+  padding-top: $space-03;
+  padding-bottom: $space-03;
+}
+.ptb-4{
+  padding-top: $space-04;
+  padding-bottom: $space-04;
+}
+
+.pl-0{
+  padding-left: 0;
+}
+
+.ptb-5{
+  padding-top: $space-05;
+  padding-bottom: $space-05;
+}

@@ -1,0 +1,49 @@
+article{
+.card-story{
+		height: 232px;
+		position: relative;
+		border: none;
+		.card-story-title{
+			color: #fff;
+			display: flex;
+			padding: 8px;
+			text-align: left;
+			margin-bottom: 0;
+			font-size: 20px;
+		}
+		.post-date{
+			color: #fff;
+			display: flex;
+			padding: 8px;
+			text-align: left;
+			opacity: 0.8;
+			margin-bottom: 0;
+			font-size: 16px;
+		}
+		div.card-image{
+			height: 100%;
+			display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    border-radius: 15px;
+		}
+		.overlay{
+			position: absolute;
+		    bottom: 0;
+		    height: 100%;
+		    width: 100%;
+		    justify-content: flex-end;
+			display: flex;
+    		flex-direction: column;
+    		background-color: rgba(0,0,0,0.3);
+    		border-radius: 12px;
+		}
+		div.buttons{
+			margin-bottom: 0; 
+			margin-top: 0;
+		}
+	}
+	
+	
+}
+

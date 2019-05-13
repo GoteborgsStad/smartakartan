@@ -1,0 +1,25 @@
+.stories-template{
+	min-height: 100%;
+	padding-top: 30px;
+	//margin-bottom: 200px;
+
+	@media only screen and (min-width: $brake-small) {
+		.mot{
+			display: flex;
+    		flex-wrap: wrap;
+		}
+		.sin{
+			max-width: 33%;
+			//width: 33%;
+			width: 300px;
+			margin-right: 16px;
+		}
+	}
+
+	article{
+		margin-bottom: 16px;
+		&.grid-item{
+			width: auto!important;
+		}
+	}
+}

@@ -1,0 +1,15 @@
+[id^="mareiobx-survey-container-"]{
+	bottom: 30px!important;
+	bottom: 88px!important;
+	z-index: 1000!important;
+	@media only screen and (min-width: $brake-small) {
+		bottom: 0.230008px!important;
+		right: 10%!important;
+		left: auto!important;
+		z-index: 2000!important;
+	}
+}
+.mareiobx-survey{
+	border-top-left-radius: 15px;
+   border-top-right-radius: 15px;
+}

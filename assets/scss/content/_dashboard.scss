@@ -1,0 +1,41 @@
+.wpuf-dashboard-container{
+	.wpuf-dashboard-navigation{
+		width: 70%;
+		ul{
+			padding: 0;
+			padding-left: 15px;
+			list-style: initial;
+		}
+	}
+	.wpuf-dashboard-content{
+		p{
+			font-size: 14px;
+		}
+		a{
+			text-decoration: underline;
+		}
+		&.posts{
+			width: 100%;
+		}
+		&.dashboard{
+			width: 100%;
+		}
+		&.edit-profile{
+			width: 100%;
+		}
+		&.submit-post{
+			width: 100%;
+		}
+		
+		.items-table{
+			width: 100%;
+			font-size: 12px;
+		}
+	}
+}
+
+.wpuf-user-loggedin{
+	a{
+			text-decoration: underline;
+	}
+}

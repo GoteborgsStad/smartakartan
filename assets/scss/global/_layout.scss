@@ -1,0 +1,29 @@
+.site-wrap{
+	 min-height: 100vh; /* will cover the 100% of viewport */
+	 overflow: hidden;
+	 display: block;
+	 position: relative;
+	 //padding-bottom: 600px; /* height of your footer */
+}
+.main-content{
+	padding-bottom: 60px;
+	.grid{
+		    //margin-right: 10px;
+	}
+}
+.stories-template, .blog-template{
+	//padding-bottom: 600px;
+}
+
+.accordions{
+	font-family: 'Palanquin Dark', sans-serif!important;
+	.accordion-content{
+		p{
+			font-family: 'Palanquin Dark', sans-serif!important;
+		}		
+	}
+
+}
+
+
+

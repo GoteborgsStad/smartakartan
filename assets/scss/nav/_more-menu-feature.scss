@@ -1,0 +1,73 @@
+//more menu modal
+#feature-more-menu-drop{
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 0;
+	width: 0;
+	transition: .3s;
+	z-index: 1110;
+	&.active{
+		width: 100%;
+		height: 100%;
+		z-index: 1100;
+	}
+}
+#feature-more-menu{
+	position: fixed;
+	top: 0;
+	padding-top: 30px;
+	left: 0;
+	height: 0;
+	width: 0;
+	background-color: rgba(0,0,0, .8);
+	transition: .3s;
+	overflow-y: auto;
+	overflow-x: hidden;
+	
+	&.active{
+		width: 80%;
+		height: 80%;
+	}
+	
+	.more-inner{
+		height: auto;
+		margin: 40px;
+
+		ul{
+			list-style: 0;
+			padding-left: 0;
+			li{
+				padding-left: 0;
+			}
+		}
+
+		a{
+			color: white;
+			display: block;
+			font-size: 20px;
+			margin-bottom: 10px;
+		}
+
+		p{
+			font-style: italic;
+			color: blue;
+		}
+
+		ul.more-delta{
+			li{
+				a{
+					font-size: 15px;
+					text-align: center;
+					display: inline-block;
+					width: 100%;
+					padding: 10px;
+					margin-bottom: 15px;
+					background-color: purple;
+					border-radius: 10px;
+				}
+			}
+		}
+
+	}
+}

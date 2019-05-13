@@ -1,0 +1,36 @@
+
+
+.scroll-menu{
+	display: flex;
+	align-items: center;
+	.sub-filter-desktop{
+		margin-right: $space-01;
+	}
+	.scroll-y {
+	  overflow-x: scroll;
+	  overflow-y: hidden;
+	  white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+	  &::-webkit-scrollbar {
+	    display: none;
+	  }	
+	  a {
+
+	    //display: inline-block;
+	  }
+	}	
+}
+
+.sub-cat-filter{
+	.ck-button{
+		width: auto;
+		margin-right: 3px;
+		span{
+			font-size: 10px;
+		}
+	}
+}
+
+
+
+
