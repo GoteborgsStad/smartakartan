@@ -132,7 +132,9 @@ else{
 					<?php if(get_field('offline', $post->ID) == 0): ?>
 
 						<?php if(get_field('multiple', $post->ID)){
-							echo '<p style="text-align: center; color: #a3a3a3; margin-bottom: 10px; height: 30px;">' . get_field('street_address', $post->ID) . '</p>';
+							echo '<p style="text-align: center; color: #a3a3a3; margin-bottom: 10px; height: 30px;">' . get_field('area', $post->ID) . '</p>';
+						}elseif(get_field('area', $post->ID)){
+							echo '<p style="text-align: center; color: #a3a3a3; margin-bottom: 10px; height: 30px;">' . get_field('area', $post->ID) . '</p>';
 						}else{
 							echo '<p class="area-online"> ... </p>';
 						}?>

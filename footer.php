@@ -47,14 +47,17 @@
 		</div>
 		<div id="footer-menu" class="footer-menu" style="background-color:<?php the_field('site_main_color_8', 'option'); ?>">
 
-		<?php
-			wp_nav_menu( array(
-			    'menu'           => 'Footer meny',
-			    'theme_location' => 'footer-menu',
-			    'fallback_cb'    => false,
-			    'container_class' => 'footer-menu-container'
-			) );
-		 ?>
+			<h1 style="color: white;"><?php pll_current_language('slug'); ?></h1>
+
+			<?php
+				wp_nav_menu( array(
+				    'menu'           => 'Footer meny',
+				    'theme_location' => 'footer-menu',
+				    'fallback_cb'    => false,
+				    'container_class' => 'footer-menu-container'
+				) );
+			 ?>
+
 		</div>
 
 
@@ -68,8 +71,8 @@
 
 	</footer>
 </div> <!-- site-wrap -->
-	
-	<script defer type='text/javascript' src='<?= get_template_directory_uri().'/dist/index.js'; ?>'></script>
+
+	<script defer type='text/javascript' src='<?= get_template_directory_uri().'/dist/index.js?ver='.SMARTAKARTAN_VER; ?>'></script>
 	<?php wp_footer(); ?>
 
 	</body>

@@ -17,6 +17,10 @@
             'map' => [
                 'base_lat'  => get_field('base_lat', 'options') ? : '57.7030712',
                 'base_long' => get_field('base_long', 'options') ? : '11.9590075',
+            ],
+            'user' => [
+                'lat' => '0',
+                'lng' => '0'
             ]
         ]);
         ?>;

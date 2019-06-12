@@ -133,7 +133,7 @@
                     <div class="opening-hours" data-toggle="collapse" data-target="#collapseHours">
                         <img src="https://via.placeholder.com/30" alt="placeholder-image"> <?php pll_e( 'Öppettider');?> 
                         
-                    <!--     <?php// echo "Today is " . date("l H") . "<br>"; ?> -->
+                        <?php // echo "Today is " . date("l H") . "<br>"; ?>
                         <?php $hour_now = date("H"); ?>
                         <?php $day = date("l"); ?>
                         <?php $today = strtolower($day); ?>

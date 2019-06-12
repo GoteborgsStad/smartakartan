@@ -672,3 +672,28 @@ ul.ac_results {
 .featured-holder .featured.scroll-y.more-of-this article {
     flex: 0 0 auto;
 	}
+
+#filter-popup .filter-buttons.transaction-buttons .ck-button{
+		word-break: break-word;
+	}
+
+.content-card-list-page .page-thumbnail .page-title{
+		padding: 20px;
+		text-align: center;
+	}
+
+@media (max-width: 768px){
+	body.page-template-collection #collection-menu {
+    margin-left: -20px;
+    margin-right: -20px;
+	}
+
+	li.location{
+		display: block;
+	}
+
+}
+
+.alike-shops .event-menu .event-date .day span{
+    line-height: 12px;
+}

@@ -11105,8 +11105,8 @@ div#category-nav-desktop {
   float: right;
 }
 
-div.filter-nav .open {
-  opacity: 0;
+.filter-menu .filter-nav .filter-section.open {
+  display: none;
 }
 
 label.cat-menu-label.active {

@@ -72,11 +72,7 @@ class postHandler{
 		          }else{
 		             update_post_meta( $id, 'is_open_now', 0 );
 		          }
-
           }
-
-
-
 
         } //foreach
 
@@ -353,9 +349,7 @@ class postHandler{
 	 * @return array $sortedItems - chunks of integers of post_type: stories IDs
 	 */
 
-	 public function getFiltered($allTypes = 'no', $filters = array(), $cat = 0, $search_results = array()){
-	 	//$isOffline = null;
-	 	//$offline_meta = '';
+	public function getFiltered($allTypes = 'no', $filters = array(), $cat = 0, $search_results = array()){
 	 	$args_to_send = array();
 	 	$isOpen = null;
 	 	$open_meta = '';
@@ -370,40 +364,39 @@ class postHandler{
 	 		$post_in = $search_results;
 	 	}
 
-
 		$this->isOpen();
 
-
 	 	if (count($filters[2]['transactions']) >= 1) {
-	 		$multipleTransactions = array();
-	 			foreach ($filters[2]['transactions'] as $key => $value) {
-	 				array_push($multipleTransactions, $value);
-	 			}
-	 					 	$tax_transactions = array(
-								'taxonomy' => 'top_taxonomy',
-								'field'    => 'slug',
-								'terms'    => $multipleTransactions,
-								'operator' => 'IN'
-		        );
+			$multipleTransactions = array();
 
-	 		}
+			foreach ($filters[2]['transactions'] as $key => $value) {
+				array_push($multipleTransactions, $value);
+			}
+
+			$tax_transactions = array(
+				'taxonomy' => 'top_taxonomy',
+				'field'    => 'slug',
+				'terms'    => $multipleTransactions,
+				'operator' => 'IN'
+			);
+		}
 
 	 	if (count($filters[3]['cat']) >= 1) {
-	 		$multipleCat = array();
-	 			foreach ($filters[3]['cat'] as $key => $value) {
-	 				array_push($multipleCat, $value);
-	 			}
-			 	$taxCat = array(
-					'taxonomy' => 'category',
-					'field'    => 'slug',
-					'terms'    => $multipleCat,
-					'operator' => 'IN'
-  		  		 );
+			$multipleCat = array();
 
-	 		}
+			foreach ($filters[3]['cat'] as $key => $value) {
+				array_push($multipleCat, $value);
+			}
 
-// Short By  FILTERS
+			$taxCat = array(
+				'taxonomy' => 'category',
+				'field'    => 'slug',
+				'terms'    => $multipleCat,
+				'operator' => 'IN'
+			);
+		}
 
+		// Sort by
 	 	if ($filters[1]['sortBy'] == 'random') {
 	 		$orderby = 'rand';
 	 	} elseif ($filters[1]['sortBy'] == 'newest') {
@@ -415,16 +408,18 @@ class postHandler{
 			$long = !empty($_POST['user_location']['long']) ? $_POST['user_location']['long'] : 0;
 
 			$query = $wpdb->prepare(
-			"SELECT DISTINCT    
+			"SELECT DISTINCT
 			  initiative_latitude.post_id,
 			  initiative_latitude.meta_key,
-			  initiative_latitude.meta_value as initiativeLat,
-			  initiative_longitude.meta_value as initiativeLong,
+			  initiative_latitude.meta_value AS initiativeLat,
+			  initiative_longitude.meta_value AS initiativeLong,
 			  ((ACOS(SIN(%s * PI() / 180) * SIN(initiative_latitude.meta_value * PI() / 180) + COS(%s * PI() / 180) * COS(initiative_latitude.meta_value * PI() / 180) * COS((%s - initiative_longitude.meta_value) * PI() / 180)) * 180 / PI()) * 60 * 1.1515) AS distance
-			FROM 
+			FROM
 			  wp_postmeta AS initiative_latitude
-			  LEFT JOIN wp_postmeta as initiative_longitude ON initiative_latitude.post_id = initiative_longitude.post_id
-			WHERE initiative_latitude.meta_key = 'post_lat' AND initiative_longitude.meta_key = 'post_lon'
+			  LEFT JOIN wp_postmeta AS initiative_longitude ON initiative_latitude.post_id = initiative_longitude.post_id
+				INNER JOIN wp_posts p ON initiative_latitude.post_id = p.id
+			WHERE (p.post_status = 'publish' AND p.post_type = 'post')
+			AND initiative_latitude.meta_key = 'post_lat' AND initiative_longitude.meta_key = 'post_lon'
 			ORDER BY distance ASC;
 			", $lat, $lat, $long);
 
@@ -445,96 +440,99 @@ class postHandler{
 			  $postOrder = array_merge($postsWithCoordinates, $postsWithoutCoordinates);
 			}
 
-			$orderby = 'post__in';
-			$post_in = $postOrder;
+			$postsNotExistsCoordinates = get_posts([
+				'fields' => 'ids',
+				'post_type' => 'post',
+				'posts_per_page' => -1,
+				'post__not_in' => $postOrder
+			]);
+
+			$postOrder = array_merge($postOrder, $postsNotExistsCoordinates);
+
+			add_filter('posts_orderby', function() use ($postOrder) {
+				$orderBy = 'FIELD(wp_posts.ID,'.implode(',', $postOrder).')';
+				return $orderBy;
+			});
 		}
 
-		// IS OPEN --  FILTERS
-	 	$meta_query_isOpen = array();
+		// Is open
 	 	if ($filters[4]['isOpen'] == 'open' ) {
-		 	$meta_query_isOpen = array(
-		            'key'          => 'is_open_now',
-		            'value'        => 1,
-		            'compare'      => '='
-		        );
-	 	}
+			global $wpdb;
 
-	 	$meta_query = array(
-	 		'relation' => 'AND',
-	 		$meta_query_distance,
-	 		$meta_query_isOpen
-	 	);
-		// ONLINE FILTERS
+			$hour = (date_i18n('H'));
+			$day = strtolower(date('l'));
 
-	 	// if($filters[0]['isOnline'] == 'online'){
-	 	// 	$isOffline = 0;
-	 	// }
-	 	// if($filters[0]['isOnline'] == 'offline'){
-	 	// 	$isOffline = 1;
-	 	// }
+			$queryOpen = $wpdb->prepare(
+				"SELECT DISTINCT
+					posts.ID
+				FROM
+					wp_posts AS posts
+					LEFT JOIN wp_postmeta AS postmeta_define ON posts.ID = postmeta_define.post_id
+					LEFT JOIN wp_postmeta AS postmeta_open ON posts.ID = postmeta_open.post_id
+					LEFT JOIN wp_postmeta AS postmeta_online ON posts.ID = postmeta_online.post_id
+				WHERE (posts.post_status = 'publish' AND posts.post_type = 'post')
+				AND (postmeta_define.meta_key = 'can_you_define_your_opening_hours' AND postmeta_define.meta_value = '1')
+				AND (postmeta_online.meta_key = 'offline' AND postmeta_online.meta_value != '1')
+				AND ((
+					postmeta_open.meta_key = %s
+					AND substring_index(postmeta_open.meta_value, '-', 1) <= %s
+					AND substring_index(postmeta_open.meta_value, '-', -1) > %s
+				) OR (postmeta_open.meta_key = 'allways_open' AND postmeta_open.meta_value = '1'))
+			", $day, $hour, $hour);
 
-	 	// om online offline är i fylld
+			$postsOpen = $wpdb->get_results($queryOpen, OBJECT);
 
-	 	// if ($filters[0]['isOnline'] != 'on-and-off') {
-		 // 	$meta_query[] =
-			//         array(
-			//             'key'          => 'offline',
-			//              'value'        => $isOffline,
-			//              'compare'      => '='
-			//         );
+			if (!empty($postsOpen)) {
+				$postsOpenIds = [];
 
-	 	// }
+				foreach ($postsOpen as $index => $postOpen) {
+					$postsOpenSingle[] = $postOpen->ID;
+				}
+			}
 
-	//var_dump($meta_query);
+			$post_in = $postsOpenSingle;
+		}
 
-	if ($allTypes == 'yes') {
-		$allPosts = $this->getAllPostsID();
+		if ($allTypes == 'yes') {
+			$allPosts = $this->getAllPostsID();
 
-		//$allCollections = $this->getAllCollectionsID();
-		//$allStories = $this->getAllStoriesID();
-		$allStories = $this->getStories();
-		$blogs = $this->getBlogs();
-		$allItems = array_merge($allPosts, $allStories, $blogs);  //$allCollections
-		shuffle($allItems);
-	}elseif ($allTypes == 'no') {
+			$allStories = $this->getStories();
+			$blogs = $this->getBlogs();
+			$allItems = array_merge($allPosts, $allStories, $blogs);
+			shuffle($allItems);
+		} elseif ($allTypes == 'no') {
+			$tax_query = array(
+				'relation' => 'AND',
+				$tax_transactions,
+				$taxCat
+			);
 
-		$tax_query = array(
-			'relation' => 'AND',
-			$tax_transactions,
-			$taxCat
-		);
+			$args_to_send = array(
+				'fields'         => 'ids',
+				'post_type'      => 'post',
+				'posts_per_page' => -1,
+				'post_status'    => 'publish',
+				'meta_query'     => $meta_query,
+				'post__in'       => $post_in,
+				'orderby'        => $orderby,
+				'order'          => $order,
+				'cat'            => $cat,
+				'tax_query'      => $tax_query,
+				'lang'           => pll_current_language()
+			);
 
-		$args_to_send = array(
-			'fields'         => 'ids',
-			'post_type'      => 'post',
-			'posts_per_page' => -1,
-			'post_status'    => 'publish',
-			'meta_query'     => $meta_query,
-			'post__in'       => $post_in,
-			'orderby'        => $orderby,
-			'order'          => $order,
-			'cat'            => $cat,
-			'tax_query'      => $tax_query,
-		);
+			$allItems = new WP_Query($args_to_send);
+			$allItems = $allItems->posts;
+		}
 
-	 	$allItems  = get_posts($args_to_send);
-	}
-
-		//return $allItems;
-
-	 	$numberOfResults = count($allItems);
-	 	$this->numberOfResults = $numberOfResults;
+		$numberOfResults = count($allItems);
+		$this->numberOfResults = $numberOfResults;
 
 		$numbOfPostOnLoad = 12;
     $sortedItems = array_chunk($allItems, $numbOfPostOnLoad);
 
-	 	//return array('results'=>$sortedItems, 'count' => $numberOfResults);
 	 	return $sortedItems;
-	  //return $blogs;
-
-	 	//return $args_to_send;
-
-	 }
+	}
 
 	/**
 	 *

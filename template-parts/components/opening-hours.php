@@ -1,49 +1,62 @@
-<a class="opening-hours" data-toggle="collapse" data-target="#collapseHours" href="#collapseHours">
 
+<a class="opening-hours" data-toggle="collapse" data-target="#collapseHours" href="#collapseHours">
   <div class="opening-header">
 
     <?php if(get_field('offline') == 1): ?>
       <span class="area-offline">- <?php pll_e( 'Digital Verksamhet');?></span>
+    <?php elseif(get_field('can_you_define_your_opening_hours') == null): ?>
+
+      <?php if (get_field('text_for_opening_hours')): ?>
+        <span><?php the_field('text_for_opening_hours'); ?></span>
+        <?php else: ?>
+        <span><?php pll_e('Ring för att bekräfta öppetider'); ?></span>
+      <?php endif; ?>
+
     <?php else: ?>
+      <i class="fa fa-clock "></i><span><?php pll_e('Öppettider'); ?></span>
 
-      <i class="fa fa-clock "></i><span><?php pll_e( 'Öppettider');?></span>
-        <?php $hour_now = (date("H") + 2); ?>
-        <?php $day = date("l"); ?>
-        <?php $today = strtolower($day); ?>
 
-        <?php $field_to_check = $today; ?>
-        <?php $allways_open = get_field('allways_open'); ?>
-        <?php $is_open_today = get_field($field_to_check); ?>
+      <?php $hour_now = date_i18n('H'); ?>
+      <?php $day = date('l'); ?>
+      <?php $today = strtolower($day); ?>
 
-          <?php if($allways_open): ?>
-              <span class="is-open">- <?php pll_e( 'Alltid öppet');?></span><br>
-              <span><?php pll_e( 'Ring för att bekräfta öppetider');?></span>
+      <?php $field_to_check = $today; ?>
+      <?php $allways_open = get_field('allways_open'); ?>
+      <?php $is_open_today = get_field($field_to_check); ?>
+
+      <?php if ($allways_open): ?>
+        <span class="is-open">- <?php pll_e( 'Alltid öppet');?></span><br>
+        <span><?php pll_e( 'Ring för att bekräfta öppetider');?></span>
+      <?php else: ?>
+
+        <?php if (get_field('can_you_define_your_opening_hours') == 0): ?>
+          <span><?php the_field('text_for_opening_hours'); ?></span>
+        <?php elseif ($is_open_today != 'closed' AND !empty($is_open_today)): ?>
+          <?php list($from, $to) = explode('-', $is_open_today); ?>
+          <?php $from = intval($from); ?>
+          <?php $to = intval($to); ?>
+
+          <?php if(($from <= $hour_now) && ($hour_now < $to)): ?>
+            <span class="is-open">- <?php pll_e( 'Förmodligen öppet');?></span><br>
+            <span><?php pll_e( 'Ring för att bekräfta öppetider');?></span>
+          <?php elseif(empty($is_open_today)): ?>
+            <span class="is-closed">- no info</span>
           <?php else: ?>
-              <?php if (get_field('can_you_define_your_opening_hours') == 0): ?>
-                  <span><?php the_field('text_for_opening_hours'); ?></span>
-              <?php elseif ($is_open_today != 'closed' AND !empty($is_open_today) ): ?>
-                <?php list($from, $to) = explode('-', $is_open_today); ?>
-                    <!-- Check if it is open today -->
-                <?php if(($from <= $hour_now) && ($hour_now < $to) ): ?>
-                  <span class="is-open">- <?php pll_e( 'Förmodligen öppet');?></span><br>
-                  <span><?php pll_e( 'Ring för att bekräfta öppetider');?></span>
-                <?php elseif(empty($is_open_today)): ?>
-                  <span class="is-closed">- no info</span>
-                <?php else: ?>
-                  <?php if (get_field('can_you_define_your_opening_hours') == 0): ?>
-                    <span><?php the_field('text_for_opening_hours'); ?></span>
-                  <?php else: ?>
-                    <span class="is-closed">- <?php pll_e( 'Förmodligen Stängt');?></span>
-                    <span><?php pll_e( 'Ring för att bekräfta öppetider');?></span>
-                  <?php endif ?>
-                <?php endif ?>
-              <?php else: ?>
-                <span class="is-closed">- <?php pll_e( 'Förmodligen Stängt');?></span>
-                <span><?php pll_e( 'Ring för att bekräfta öppetider');?></span>
-              <?php endif; ?> <!-- allways_open -->
-              <?php endif ?>
 
-            </div>
+            <?php if (get_field('can_you_define_your_opening_hours') == 0): ?>
+              <span><?php the_field('text_for_opening_hours'); ?></span>
+            <?php else: ?>
+              <span class="is-closed">- <?php pll_e( 'Förmodligen Stängt');?></span>
+              <span><?php pll_e( 'Ring för att bekräfta öppetider');?></span>
+            <?php endif ?>
+
+          <?php endif ?>
+        <?php else: ?>
+          <span class="is-closed">- <?php pll_e( 'Förmodligen Stängt');?></span>
+          <span><?php pll_e( 'Ring för att bekräfta öppetider');?></span>
+        <?php endif; ?>
+      <?php endif ?>
+  </div>
           <?php if(!$allways_open || ( !get_field('can_you_define_your_opening_hours'))  ): ?>
         <div class="collapse" id="collapseHours">
 

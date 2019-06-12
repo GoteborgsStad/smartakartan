@@ -54,7 +54,7 @@ if (
 
             var layers;
 
-            var renderMap = function(array) {
+            window.renderMap = function(array) {
                 layers = Object.entries(mymap._layers);
 
                 layers.map(function(layer) {
@@ -77,8 +77,6 @@ if (
                         multiple = post[1][0].multiple.split('&&');
 
                         multiple.map(function(loc) {
-                            //  console.log('loc:', loc, post[1][0]);
-
                             axios
                                 .get(
                                     'https://nominatim.openstreetmap.org/search?q=' +
@@ -226,108 +224,7 @@ if (
                 }, 3000);
             };
 
-            renderMap(singlePostsArray);
-
-            var query = { open: false, cats: [], trans: [] };
-
-            var filterMap = function(query) {
-                setTimeout(function() {
-                    return hoverEffect();
-                }, 2000);
-
-                if (query.open) {
-                    var array1 = singlePostsArray.filter(function(post) {
-                        return post[1][0].open && post[1][0].open == 'open';
-                    });
-                } else {
-                    var array1 = singlePostsArray;
-                }
-                if (query.cats.length > 0 && array1.length > 0) {
-                    var array2 = array1.filter(function(post) {
-                        return new RegExp(query.cats.join('|')).test(
-                            post[1][0].cat_slug
-                        );
-                    });
-                } else {
-                    var array2 = array1;
-                }
-                if (query.trans.length > 0 && array2.length > 0) {
-                    var array3 = array2.filter(function(post) {
-                        return new RegExp(query.trans.join('|')).test(
-                            post[1][0].trans
-                        );
-                    });
-                } else {
-                    var array3 = array2;
-                }
-
-                renderMap(array3);
-            };
-
-            const showOpen = document.querySelector('input#checkbox2');
-            const showOpenExp = document.querySelector('input#checkbox3');
-            const showOpenMob = document.querySelector('input#checkbox1');
-            const showCats = document.querySelectorAll(
-                'div.category-buttons input.sub-check'
-            );
-            const showTrans = document.querySelectorAll(
-                'div.transaction-buttons  input.sub-check'
-            );
-
-            showOpen.addEventListener('change', function(e) {
-                if (e.currentTarget.checked) {
-                    query.open = true;
-                } else {
-                    query.open = false;
-                }
-                filterMap(query);
-            });
-
-            showOpenExp.addEventListener('change', function(e) {
-                if (e.currentTarget.checked) {
-                    query.open = true;
-                } else {
-                    query.open = false;
-                }
-                filterMap(query);
-            });
-
-            showOpenMob.addEventListener('change', function(e) {
-                if (e.currentTarget.checked) {
-                    query.open = true;
-                } else {
-                    query.open = false;
-                }
-                filterMap(query);
-            });
-
-            for (var i = 0; i < showCats.length; i++) {
-                showCats[i].addEventListener('change', function(e) {
-                    if (e.currentTarget.checked) {
-                        query.cats.push(e.currentTarget.name);
-                    } else {
-                        var index = query.cats.indexOf(e.currentTarget.name);
-                        if (index > -1) {
-                            query.cats.splice(index, 1);
-                        }
-                    }
-                    filterMap(query);
-                });
-            }
-
-            for (var i = 0; i < showTrans.length; i++) {
-                showTrans[i].addEventListener('change', function(e) {
-                    if (e.currentTarget.checked) {
-                        query.trans.push(e.currentTarget.name);
-                    } else {
-                        var index = query.trans.indexOf(e.currentTarget.name);
-                        if (index > -1) {
-                            query.trans.splice(index, 1);
-                        }
-                    }
-                    filterMap(query);
-                });
-            }
+            window.renderMap(singlePostsArray);
 
             var cardOnMap = function() {};
 
@@ -335,8 +232,7 @@ if (
             mymap.on('locationfound', function(e) {
                 latLong = e.latlng;
                 var current = e.latlng;
-                window.SmartaKartan = {}; // global Object container; don't use var
-                SmartaKartan.value = current;
+                window.smartakartan.user = current
 
                 mymap.setView({ lon: latLong.lng, lat: latLong.lat }, 12);
 
@@ -442,8 +338,11 @@ if (
             };
 
             window.afterLocationFound = function(data) {
-                var currentLocation = SmartaKartan.value;
-                window.writeDistanceOnCard(currentLocation);
+                if (window.smartakartan.user.lat === '0' || window.smartakartan.user.lng === '0') {
+                    return false;
+                }
+
+                window.writeDistanceOnCard(window.smartakartan.user);
             };
 
             //**** draw out info from cards

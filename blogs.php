@@ -63,7 +63,7 @@
 								//include(locate_template('template-parts/content/content-blog.php'));
 							?>
 
-						<?php// endforeach ?> -->
+						<?php // endforeach ?> -->
 						
 						<div id="before"></div>
 

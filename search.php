@@ -4,6 +4,7 @@
 
 <!-- <?php $options_page_id = get_option('page_on_front'); ?> -->
 <?php $search_results = array(); ?>
+
 <?php  if ( have_posts() ):?>
 	<?php while ( have_posts() ) : the_post(); ?>
 			<?php $the_id = get_the_ID($post); ?>

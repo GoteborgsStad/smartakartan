@@ -17,10 +17,10 @@ $(document).ready(function($) {
 
   // Reset the result
   $('#reset').click(function(e) {
-    $('#on-and-off').prop('checked', true);
-    $('#newest').prop('checked', true);
-    $('.filter-controll .transaction-buttons input').prop('checked', false);
-    $('.filter-controll .open-buttons input').prop('checked', false);
+    $('.filter-controll #checkbox1').prop('checked', false);
+    $('.filter-controll #srandom').prop('checked', true);
+    $('.filter-controll .category-buttons input').prop('checked', false);
+    $('.filter-controll .transaction-buttons input').prop('checked', true);
   });
 
   // Dont show transactions filters on transaction template
@@ -109,15 +109,12 @@ $(document).ready(function($) {
      * Get data for OPEN filter attributes
      * returns: Array string
      */
-    var isOpen = jQuery('.filter-controll .open .toggles-hd input:checked');
 
     var dataFiltersOpen = {};
-    if (isOpen.length != 0) {
-      $(isOpen).each(function() {
-        dataFiltersOpen.isOpen = $(this).attr('data-filter');
-      });
-    } else {
-      dataFiltersOpen.isOpen = 'all';
+    dataFiltersOpen.isOpen = 'all'
+
+    if ($('.filter-controll .open .toggles-hd input').is(':checked')) {
+      dataFiltersOpen.isOpen = 'open';
     }
 
     /*
@@ -140,8 +137,8 @@ $(document).ready(function($) {
         filters: allFilterData,
         cat: cat,
         user_location: {
-          lat: window.window.SmartaKartan.value.lat,
-          long: window.SmartaKartan.value.lng
+          lat: window.smartakartan.user.lat,
+          long: window.smartakartan.user.lng
         },
         searchIDs: searchIDs
       },
@@ -149,6 +146,32 @@ $(document).ready(function($) {
         var $items = $(response);
         $('.grid').prepend($items).masonry('prepended', $items);
         window.chunk++;
+
+        var chunksIds = [];
+        for (let index = 0; index < chunks.length; index++) {
+          chunks[index].map(function(id) {
+            chunksIds.push(id);
+          });
+        }
+        
+        var postsOnMap = [];
+        var count = 0;
+        for (let index = 0; index < chunksIds.length; index++) {
+          if (chunksIds[index] in singlePosts) {
+            postsOnMap[count] = [];
+            postsOnMap[count][0] = singlePosts[chunksIds[index]][0].postid;
+            postsOnMap[count][1] = singlePosts[chunksIds[index]];
+            count++;
+          }
+        }
+
+        window.renderMap(postsOnMap);
+
+        if (maxPage === window.chunk || maxPage === 0) {
+          $('#load-more').css('display', 'none');
+        }else{
+          $('#load-more').css('display', 'block');
+        }
 
         $('#filter-popup').removeClass('active');
       },
@@ -281,21 +304,36 @@ $(document).ready(function($) {
         filters: allFilterData,
         cat: cat,
         user_location: {
-          lat: window.window.SmartaKartan.value.lat,
-          long: window.SmartaKartan.value.lng
+          lat: window.smartakartan.user.lat,
+          long: window.smartakartan.user.lng
         },
         searchIDs: searchIDs
       },
       success: function(response) {
-        //var count = response;
-        //console.log(response.count);
-        //$('#numberOfResults').html(response.count);
-
         var $items = $(response);
         $('.grid').prepend($items).masonry('prepended', $items);
-        //$('#load-more').css('display', 'none');
-        //filterchunk++;
         window.chunk++;
+
+        var chunksIds = [];
+        for (let index = 0; index < chunks.length; index++) {
+          chunks[index].map(function(id) {
+            chunksIds.push(id);
+          });
+        }
+        
+        var postsOnMap = [];
+        var count = 0;
+        for (let index = 0; index < chunksIds.length; index++) {
+          if (chunksIds[index] in singlePosts) {
+            postsOnMap[count] = [];
+            postsOnMap[count][0] = singlePosts[chunksIds[index]][0].postid;
+            postsOnMap[count][1] = singlePosts[chunksIds[index]];
+            count++;
+          }
+        }
+
+        window.renderMap(postsOnMap);
+
         $('#filter-popup').removeClass('active');
       },
       error: function(errorThrown) {

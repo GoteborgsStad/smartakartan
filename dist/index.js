@@ -300,7 +300,7 @@ if (jQuery('body.home').length || jQuery('body.category').length || jQuery('body
       }).addTo(mymap);
       var layers;
 
-      var renderMap = function renderMap(array) {
+      window.renderMap = function (array) {
         layers = Object.entries(mymap._layers);
         layers.map(function (layer) {
           if (layer[1] && layer[1].options && layer[1].options.icon && layer[1].options.icon.options.iconUrl && layer[1].options.icon.options.iconUrl != 'marker-icon.png') {
@@ -313,7 +313,6 @@ if (jQuery('body.home').length || jQuery('body.category').length || jQuery('body
           if (post[1][0].multiple) {
             multiple = post[1][0].multiple.split('&&');
             multiple.map(function (loc) {
-              //  console.log('loc:', loc, post[1][0]);
               axios.get('https://nominatim.openstreetmap.org/search?q=' + loc + '&format=json').then(function (result) {
                 if (result.data[0]) {
                   var _long = result.data[0].lon;
@@ -410,109 +409,7 @@ if (jQuery('body.home').length || jQuery('body.category').length || jQuery('body
         }, 3000);
       };
 
-      renderMap(singlePostsArray);
-      var query = {
-        open: false,
-        cats: [],
-        trans: []
-      };
-
-      var filterMap = function filterMap(query) {
-        setTimeout(function () {
-          return hoverEffect();
-        }, 2000);
-
-        if (query.open) {
-          var array1 = singlePostsArray.filter(function (post) {
-            return post[1][0].open && post[1][0].open == 'open';
-          });
-        } else {
-          var array1 = singlePostsArray;
-        }
-
-        if (query.cats.length > 0 && array1.length > 0) {
-          var array2 = array1.filter(function (post) {
-            return new RegExp(query.cats.join('|')).test(post[1][0].cat_slug);
-          });
-        } else {
-          var array2 = array1;
-        }
-
-        if (query.trans.length > 0 && array2.length > 0) {
-          var array3 = array2.filter(function (post) {
-            return new RegExp(query.trans.join('|')).test(post[1][0].trans);
-          });
-        } else {
-          var array3 = array2;
-        }
-
-        renderMap(array3);
-      };
-
-      var showOpen = document.querySelector('input#checkbox2');
-      var showOpenExp = document.querySelector('input#checkbox3');
-      var showOpenMob = document.querySelector('input#checkbox1');
-      var showCats = document.querySelectorAll('div.category-buttons input.sub-check');
-      var showTrans = document.querySelectorAll('div.transaction-buttons  input.sub-check');
-      showOpen.addEventListener('change', function (e) {
-        if (e.currentTarget.checked) {
-          query.open = true;
-        } else {
-          query.open = false;
-        }
-
-        filterMap(query);
-      });
-      showOpenExp.addEventListener('change', function (e) {
-        if (e.currentTarget.checked) {
-          query.open = true;
-        } else {
-          query.open = false;
-        }
-
-        filterMap(query);
-      });
-      showOpenMob.addEventListener('change', function (e) {
-        if (e.currentTarget.checked) {
-          query.open = true;
-        } else {
-          query.open = false;
-        }
-
-        filterMap(query);
-      });
-
-      for (var i = 0; i < showCats.length; i++) {
-        showCats[i].addEventListener('change', function (e) {
-          if (e.currentTarget.checked) {
-            query.cats.push(e.currentTarget.name);
-          } else {
-            var index = query.cats.indexOf(e.currentTarget.name);
-
-            if (index > -1) {
-              query.cats.splice(index, 1);
-            }
-          }
-
-          filterMap(query);
-        });
-      }
-
-      for (var i = 0; i < showTrans.length; i++) {
-        showTrans[i].addEventListener('change', function (e) {
-          if (e.currentTarget.checked) {
-            query.trans.push(e.currentTarget.name);
-          } else {
-            var index = query.trans.indexOf(e.currentTarget.name);
-
-            if (index > -1) {
-              query.trans.splice(index, 1);
-            }
-          }
-
-          filterMap(query);
-        });
-      }
+      window.renderMap(singlePostsArray);
 
       var cardOnMap = function cardOnMap() {}; //track user location
 
@@ -520,9 +417,7 @@ if (jQuery('body.home').length || jQuery('body.category').length || jQuery('body
       mymap.on('locationfound', function (e) {
         latLong = e.latlng;
         var current = e.latlng;
-        window.SmartaKartan = {}; // global Object container; don't use var
-
-        SmartaKartan.value = current;
+        window.smartakartan.user = current;
         mymap.setView({
           lon: latLong.lng,
           lat: latLong.lat
@@ -604,8 +499,11 @@ if (jQuery('body.home').length || jQuery('body.category').length || jQuery('body
       };
 
       window.afterLocationFound = function (data) {
-        var currentLocation = SmartaKartan.value;
-        window.writeDistanceOnCard(currentLocation);
+        if (window.smartakartan.user.lat === '0' || window.smartakartan.user.lng === '0') {
+          return false;
+        }
+
+        window.writeDistanceOnCard(window.smartakartan.user);
       }; //**** draw out info from cards
 
 
@@ -1447,10 +1345,10 @@ $(document).ready(function ($) {
   }); // Reset the result
 
   $('#reset').click(function (e) {
-    $('#on-and-off').prop('checked', true);
-    $('#newest').prop('checked', true);
-    $('.filter-controll .transaction-buttons input').prop('checked', false);
-    $('.filter-controll .open-buttons input').prop('checked', false);
+    $('.filter-controll #checkbox1').prop('checked', false);
+    $('.filter-controll #srandom').prop('checked', true);
+    $('.filter-controll .category-buttons input').prop('checked', false);
+    $('.filter-controll .transaction-buttons input').prop('checked', true);
   }); // Dont show transactions filters on transaction template
 
   if ($('#wrapper').hasClass('transactions')) {
@@ -1530,15 +1428,11 @@ $(document).ready(function ($) {
      * returns: Array string
      */
 
-    var isOpen = jQuery('.filter-controll .open .toggles-hd input:checked');
     var dataFiltersOpen = {};
+    dataFiltersOpen.isOpen = 'all';
 
-    if (isOpen.length != 0) {
-      $(isOpen).each(function () {
-        dataFiltersOpen.isOpen = $(this).attr('data-filter');
-      });
-    } else {
-      dataFiltersOpen.isOpen = 'all';
+    if ($('.filter-controll .open .toggles-hd input').is(':checked')) {
+      dataFiltersOpen.isOpen = 'open';
     }
     /*
      * Place all filter parameter in an Array
@@ -1561,8 +1455,8 @@ $(document).ready(function ($) {
         filters: allFilterData,
         cat: cat,
         user_location: {
-          lat: window.window.SmartaKartan.value.lat,
-          "long": window.SmartaKartan.value.lng
+          lat: window.smartakartan.user.lat,
+          "long": window.smartakartan.user.lng
         },
         searchIDs: searchIDs
       },
@@ -1570,6 +1464,34 @@ $(document).ready(function ($) {
         var $items = $(response);
         $('.grid').prepend($items).masonry('prepended', $items);
         window.chunk++;
+        var chunksIds = [];
+
+        for (var index = 0; index < chunks.length; index++) {
+          chunks[index].map(function (id) {
+            chunksIds.push(id);
+          });
+        }
+
+        var postsOnMap = [];
+        var count = 0;
+
+        for (var _index = 0; _index < chunksIds.length; _index++) {
+          if (chunksIds[_index] in singlePosts) {
+            postsOnMap[count] = [];
+            postsOnMap[count][0] = singlePosts[chunksIds[_index]][0].postid;
+            postsOnMap[count][1] = singlePosts[chunksIds[_index]];
+            count++;
+          }
+        }
+
+        window.renderMap(postsOnMap);
+
+        if (maxPage === window.chunk || maxPage === 0) {
+          $('#load-more').css('display', 'none');
+        } else {
+          $('#load-more').css('display', 'block');
+        }
+
         $('#filter-popup').removeClass('active');
       },
       error: function error(errorThrown) {//     console.log(errorThrown);
@@ -1692,20 +1614,36 @@ $(document).ready(function ($) {
         filters: allFilterData,
         cat: cat,
         user_location: {
-          lat: window.window.SmartaKartan.value.lat,
-          "long": window.SmartaKartan.value.lng
+          lat: window.smartakartan.user.lat,
+          "long": window.smartakartan.user.lng
         },
         searchIDs: searchIDs
       },
       success: function success(response) {
-        //var count = response;
-        //console.log(response.count);
-        //$('#numberOfResults').html(response.count);
         var $items = $(response);
-        $('.grid').prepend($items).masonry('prepended', $items); //$('#load-more').css('display', 'none');
-        //filterchunk++;
-
+        $('.grid').prepend($items).masonry('prepended', $items);
         window.chunk++;
+        var chunksIds = [];
+
+        for (var index = 0; index < chunks.length; index++) {
+          chunks[index].map(function (id) {
+            chunksIds.push(id);
+          });
+        }
+
+        var postsOnMap = [];
+        var count = 0;
+
+        for (var _index2 = 0; _index2 < chunksIds.length; _index2++) {
+          if (chunksIds[_index2] in singlePosts) {
+            postsOnMap[count] = [];
+            postsOnMap[count][0] = singlePosts[chunksIds[_index2]][0].postid;
+            postsOnMap[count][1] = singlePosts[chunksIds[_index2]];
+            count++;
+          }
+        }
+
+        window.renderMap(postsOnMap);
         $('#filter-popup').removeClass('active');
       },
       error: function error(errorThrown) {//     console.log(errorThrown);
@@ -38852,8 +38790,8 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/sk_latest/wp-content/themes/smarta-kartan/assets/index.js */"./assets/index.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/sk_latest/wp-content/themes/smarta-kartan/assets/scss/main.scss */"./assets/scss/main.scss");
+__webpack_require__(/*! /var/www/html/smartakartan/wp-content/themes/smarta-kartan/assets/index.js */"./assets/index.js");
+module.exports = __webpack_require__(/*! /var/www/html/smartakartan/wp-content/themes/smarta-kartan/assets/scss/main.scss */"./assets/scss/main.scss");
 
 
 /***/ })

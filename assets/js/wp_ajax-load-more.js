@@ -19,6 +19,7 @@ $(document).ready(function($) {
           $('.grid').append($content).masonry('appended', $content);
 
           window.chunk++;
+
           if (maxPage === window.chunk || maxPage === 0) {
             $('#load-more').css('display', 'none');
           }

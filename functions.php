@@ -5,6 +5,8 @@ show_admin_bar( false );
 add_filter('show_admin_bar', '__return_false');
 */
 
+const SMARTAKARTAN_VER = '1.0.6';
+
 function admin_bar(){
   if(is_user_logged_in()){
     add_filter( 'show_admin_bar', '__return_true' , 1000 );
@@ -64,8 +66,8 @@ function Generate_Featured_Image( $image_url, $post_id  ){
  * Enqueue styles
  */
 function smartakartan_scipts() {
-  wp_enqueue_style('smartakartan-common-styles', get_template_directory_uri().'/dist/all.css', array(), '1.0.0');
-  wp_enqueue_style('extended', get_template_directory_uri().'/assets/css/extended.css', array(), '1.0.0');
+  wp_enqueue_style('smartakartan-common-styles', get_template_directory_uri().'/dist/all.css', array(), SMARTAKARTAN_VER);
+  wp_enqueue_style('extended', get_template_directory_uri().'/assets/css/extended.css', array(), SMARTAKARTAN_VER);
 
   // wp_deregister_script('jquery');
   // wp_enqueue_script('smartakartan-common-scripts', get_template_directory_uri().'/dist/index.js', array(), '1.0.0', true);
@@ -304,6 +306,8 @@ pll_register_string( 'smartakartan', 'you are here' );
 pll_register_string( 'smartakartan', 'Alltid öppet' );
 pll_register_string( 'smartakartan', 'Förmodligen öppet' );
 pll_register_string( 'smartakartan', 'Förmodligen Stängt' );
+pll_register_string( 'smartakartan', 'Återställ' );
+pll_register_string( 'smartakartan', 'Sortera' );
 
 pll_register_string( 'smartakartan', 'Jan' );
 pll_register_string( 'smartakartan', 'Feb' );
@@ -322,6 +326,10 @@ pll_register_string( 'smartakartan', 'Längd' );
 pll_register_string( 'smartakartan', 'Tid' );
 
 pll_register_string( 'smartakartan', 'Thank you for posting on our site. We have sent you an confirmation email. Please check your inbox!' );
+
+pll_register_string( 'smartakartan', 'Flera höjdpunkter för dig' );
+pll_register_string( 'smartakartan', 'Allt inom:' );
+pll_register_string( 'smartakartan', 'Evenemang' );
 
 };
 
@@ -444,3 +452,28 @@ add_filter('w3tc_minify_processed', function ($buf) {
 
   return $buf;
 });
+
+add_filter( 'posts_groupby', 'custom_posts_groupby', 10, 2 );
+/**
+ * Callback for WordPress 'posts_groupby' filter.
+ *
+ * Set the GROUP BY clause to post IDs.
+ *
+ * @global $wpdb https://codex.wordpress.org/Class_Reference/wpdb
+ *
+ * @param string $groupby The GROUPBY caluse.
+ * @param WP_Query $query The current WP_Query object.
+ *
+ * @return string The GROUPBY clause.
+ */
+function custom_posts_groupby( $groupby, $query ) {
+
+    global $wpdb;
+
+    if ( is_main_query() && is_search() ) {
+        $groupby = "{$wpdb->posts}.ID";
+    }
+
+    return $groupby;
+
+}
