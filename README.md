@@ -1,4 +1,4 @@
-# Smarta Kartan
+# Smarta Kartan ## OBS Det finns en ny version Smartakartan 3.0 som är en egen repository! ##
 
 Ett Wordpress tema.
 
